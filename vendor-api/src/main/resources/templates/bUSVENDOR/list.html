@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+    <head>
+        <title th:text="#{bUSVENDOR.list.headline}" />
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="d-flex flex-wrap mb-4">
+                <h1 th:text="#{bUSVENDOR.list.headline}" class="flex-grow-1" />
+                <div>
+                    <a th:href="@{/bUSVENDORs/add}" th:text="#{bUSVENDOR.list.createNew}" class="btn btn-primary ms-2" />
+                </div>
+            </div>
+            <div th:if="${bUSVENDORs.empty}" th:text="#{bUSVENDOR.list.empty}" />
+            <div th:if="${!bUSVENDORs.empty}" class="table-responsive">
+                <table class="table table-striped table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th th:text="#{bUSVENDOR.vendorid.label}" scope="col" />
+                            <th th:text="#{bUSVENDOR.vendorname.label}" scope="col" />
+                            <th th:text="#{bUSVENDOR.vendordescription.label}" scope="col" />
+                            <th th:text="#{bUSVENDOR.vendorCategory.label}" scope="col" />
+                            <th th:text="#{bUSVENDOR.vendorpan.label}" scope="col" />
+                            <th th:text="#{bUSVENDOR.vendorgst.label}" scope="col" />
+                            <th th:text="#{bUSVENDOR.businessname.label}" scope="col" />
+                            <th th:text="#{bUSVENDOR.state.label}" scope="col" />
+                            <th><!-- --></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="bUSVENDOR : ${bUSVENDORs}">
+                            <td th:text="${bUSVENDOR.vendorid}" />
+                            <td th:text="${bUSVENDOR.vendorname}" />
+                            <td th:text="${bUSVENDOR.vendordescription}" />
+                            <td th:text="${bUSVENDOR.vendorCategory}" />
+                            <td th:text="${bUSVENDOR.vendorpan}" />
+                            <td th:text="${bUSVENDOR.vendorgst}" />
+                            <td th:text="${bUSVENDOR.businessname}" />
+                            <td th:text="${bUSVENDOR.state}" />
+                            <td>
+                                <div class="float-end text-nowrap">
+                                    <a th:href="@{/bUSVENDORs/edit/{vendorid}(vendorid=${bUSVENDOR.vendorid})}" th:text="#{bUSVENDOR.list.edit}" class="btn btn-sm btn-info" />
+                                    <form th:action="@{/bUSVENDORs/delete/{vendorid}(vendorid=${bUSVENDOR.vendorid})}"
+                                            th:data-confirm-message="#{delete.confirm}" method="post" class="js-submit-confirm d-inline">
+                                        <button th:text="#{bUSVENDOR.list.delete}" type="submit" class="btn btn-sm btn-danger" />
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+    <head>
+        <title th:text="#{bUSES.list.headline}" />
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="d-flex flex-wrap mb-4">
+                <h1 th:text="#{bUSES.list.headline}" class="flex-grow-1" />
+                <div>
+                    <a th:href="@{/bUSESs/add}" th:text="#{bUSES.list.createNew}" class="btn btn-primary ms-2" />
+                </div>
+            </div>
+            <div th:if="${bUSESs.empty}" th:text="#{bUSES.list.empty}" />
+            <div th:if="${!bUSESs.empty}" class="table-responsive">
+                <table class="table table-striped table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th th:text="#{bUSES.busid.label}" scope="col" />
+                            <th th:text="#{bUSES.busname.label}" scope="col" />
+                            <th th:text="#{bUSES.seatcapacity.label}" scope="col" />
+                            <th th:text="#{bUSES.sleeperid.label}" scope="col" />
+                            <th th:text="#{bUSES.sleeperud.label}" scope="col" />
+                            <th th:text="#{bUSES.busdiscription.label}" scope="col" />
+                            <th th:text="#{bUSES.bustypeid.label}" scope="col" />
+                            <th th:text="#{bUSES.vendoridfk.label}" scope="col" />
+                            <th><!-- --></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="bUSES : ${bUSESs}">
+                            <td th:text="${bUSES.busid}" />
+                            <td th:text="${bUSES.busname}" />
+                            <td th:text="${bUSES.seatcapacity}" />
+                            <td th:text="${bUSES.sleeperid}" />
+                            <td th:text="${bUSES.sleeperud}" />
+                            <td th:text="${bUSES.busdiscription}" />
+                            <td th:text="${bUSES.bustypeid}" />
+                            <td th:text="${bUSES.vendoridfk}" />
+                            <td>
+                                <div class="float-end text-nowrap">
+                                    <a th:href="@{/bUSESs/edit/{busid}(busid=${bUSES.busid})}" th:text="#{bUSES.list.edit}" class="btn btn-sm btn-info" />
+                                    <form th:action="@{/bUSESs/delete/{busid}(busid=${bUSES.busid})}"
+                                            th:data-confirm-message="#{delete.confirm}" method="post" class="js-submit-confirm d-inline">
+                                        <button th:text="#{bUSES.list.delete}" type="submit" class="btn btn-sm btn-danger" />
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>

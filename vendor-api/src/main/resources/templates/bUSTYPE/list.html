@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+    <head>
+        <title th:text="#{bUSTYPE.list.headline}" />
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="d-flex flex-wrap mb-4">
+                <h1 th:text="#{bUSTYPE.list.headline}" class="flex-grow-1" />
+                <div>
+                    <a th:href="@{/bUSTYPEs/add}" th:text="#{bUSTYPE.list.createNew}" class="btn btn-primary ms-2" />
+                </div>
+            </div>
+            <div th:if="${bUSTYPEs.empty}" th:text="#{bUSTYPE.list.empty}" />
+            <div th:if="${!bUSTYPEs.empty}" class="table-responsive">
+                <table class="table table-striped table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th th:text="#{bUSTYPE.busid.label}" scope="col" />
+                            <th th:text="#{bUSTYPE.bustypename.label}" scope="col" />
+                            <th th:text="#{bUSTYPE.description.label}" scope="col" />
+                            <th th:text="#{bUSTYPE.isactive.label}" scope="col" />
+                            <th><!-- --></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="bUSTYPE : ${bUSTYPEs}">
+                            <td th:text="${bUSTYPE.busid}" />
+                            <td th:text="${bUSTYPE.bustypename}" />
+                            <td th:text="${bUSTYPE.description}" />
+                            <td th:text="${bUSTYPE.isactive}" />
+                            <td>
+                                <div class="float-end text-nowrap">
+                                    <a th:href="@{/bUSTYPEs/edit/{busid}(busid=${bUSTYPE.busid})}" th:text="#{bUSTYPE.list.edit}" class="btn btn-sm btn-info" />
+                                    <form th:action="@{/bUSTYPEs/delete/{busid}(busid=${bUSTYPE.busid})}"
+                                            th:data-confirm-message="#{delete.confirm}" method="post" class="js-submit-confirm d-inline">
+                                        <button th:text="#{bUSTYPE.list.delete}" type="submit" class="btn btn-sm btn-danger" />
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>
